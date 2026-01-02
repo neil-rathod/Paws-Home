@@ -5,7 +5,6 @@ A modern, minimalist dog adoption platform built with React and TypeScript. Brow
 ![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?style=flat-square&logo=vite&logoColor=white)
-![Gemini AI](https://img.shields.io/badge/Gemini_AI-Powered-4285F4?style=flat-square&logo=google&logoColor=white)
 
 ---
 
@@ -16,7 +15,6 @@ A modern, minimalist dog adoption platform built with React and TypeScript. Brow
 - **Favorites System** — Save dogs you love with persistent local storage
 - **Detailed Dog Profiles** — View comprehensive information including compatibility with cats, dogs, and kids
 - **Adoption Application** — Complete multi-step application form for serious adopters
-- **AI-Powered Matching** — Get personalized dog recommendations using Google Gemini AI
 - **Responsive Design** — Seamless experience across desktop, tablet, and mobile devices
 - **Smooth Animations** — Polished UI with elegant transitions and hover effects
 
@@ -42,20 +40,12 @@ A modern, minimalist dog adoption platform built with React and TypeScript. Brow
    npm install
    ```
 
-3. **Set up environment variables**
-   
-   Create a `.env` file in the root directory:
-   ```env
-   API_KEY=your_google_gemini_api_key
-   ```
-   > Get your API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
-
-4. **Start the development server**
+3. **Start the development server**
    ```bash
    npm run dev
    ```
 
-5. **Open your browser**
+4. **Open your browser**
    
    Navigate to `http://localhost:5173`
 
@@ -73,7 +63,6 @@ PawsANDHome/
 │   └── ProcessPage.tsx      # Adoption process info
 ├── App.tsx                  # Main application component
 ├── constants.tsx            # Dog data and constants
-├── geminiService.ts         # Google Gemini AI integration
 ├── types.ts                 # TypeScript type definitions
 ├── index.tsx                # Application entry point
 ├── index.html               # HTML template
@@ -100,7 +89,6 @@ PawsANDHome/
 | **React 19** | UI component library |
 | **TypeScript** | Type-safe JavaScript |
 | **Vite** | Fast build tool and dev server |
-| **Google Gemini AI** | AI-powered dog matching recommendations |
 | **LocalStorage** | Persistent favorites storage |
 
 ---
@@ -163,7 +151,6 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 💖 Acknowledgments
 
 - Dog images sourced from [Unsplash](https://unsplash.com)
-- AI matching powered by [Google Gemini](https://ai.google.dev)
 
 ---
 
