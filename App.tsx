@@ -260,10 +260,14 @@ const App: React.FC = () => {
 
       <main className="max-w-6xl mx-auto px-6 pt-32 pb-24">
         {/* Hero */}
-        <section className="mb-16 pt-8">
+        <section className="mb-20 pt-8">
           <div className="max-w-2xl opacity-0 animate-fade-up">
-            <h2 className="text-5xl md:text-6xl font-normal mb-6 tracking-tight leading-[1.1] serif">
-              Find your perfect <br /><em className="text-neutral-400">companion</em>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-50 border border-amber-100 rounded-full mb-6">
+              <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
+              <span className="text-xs font-medium text-amber-700">{DOGS.length} dogs looking for homes</span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-normal mb-6 tracking-tight leading-[1.05] serif">
+              Find your perfect <br /><em className="text-neutral-400 hover:text-amber-500 transition-colors duration-500 cursor-default">companion</em>
             </h2>
             <p className="text-lg text-neutral-500 leading-relaxed max-w-lg">
               Every dog deserves a loving home. Browse our carefully curated selection of dogs waiting for their forever families.
@@ -275,22 +279,37 @@ const App: React.FC = () => {
         <section className="mb-12 opacity-0 animate-fade-up delay-100">
           <div className="flex flex-col gap-6">
             {/* Search */}
-            <div className="relative max-w-md">
+            <div className="relative max-w-md group">
               <input 
                 type="text" 
                 placeholder="Search by name, breed, or trait..."
-                className="w-full bg-white border border-neutral-200 pl-11 pr-4 py-3 rounded-xl text-sm placeholder:text-neutral-400 focus:outline-none focus:border-neutral-400 transition-colors duration-200"
+                className="w-full bg-white border border-neutral-200 pl-12 pr-4 py-3.5 rounded-2xl text-sm placeholder:text-neutral-400 focus:outline-none focus:border-neutral-400 focus:ring-4 focus:ring-neutral-100 transition-all duration-300 shadow-sm hover:shadow-md"
                 value={filters.search}
                 onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
               />
-              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 group-focus-within:text-neutral-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
+              {filters.search && (
+                <button 
+                  onClick={() => setFilters(prev => ({ ...prev, search: '' }))}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-neutral-600 transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
             </div>
 
             {/* Filter Pills */}
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs text-neutral-400 mr-2">Filter:</span>
+              <span className="text-xs font-medium text-neutral-500 mr-2 flex items-center gap-1.5">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+                </svg>
+                Filter
+              </span>
               
               {['Puppy', 'Young', 'Adult', 'Senior'].map((age) => (
                 <button
@@ -301,17 +320,17 @@ const App: React.FC = () => {
                       ? prev.age.filter(a => a !== age) 
                       : [...prev.age, age as Age]
                   }))}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 border ${
                     filters.age.includes(age as Age) 
-                    ? 'bg-neutral-900 text-white' 
-                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                    ? 'bg-neutral-900 text-white border-neutral-900 shadow-md shadow-neutral-900/20' 
+                    : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300 hover:shadow-sm'
                   }`}
                 >
                   {age}
                 </button>
               ))}
 
-              <span className="w-px h-4 bg-neutral-200 mx-1"></span>
+              <span className="w-px h-5 bg-neutral-200 mx-2"></span>
 
               {['Male', 'Female'].map((gender) => (
                 <button
@@ -322,12 +341,13 @@ const App: React.FC = () => {
                       ? prev.gender.filter(g => g !== gender) 
                       : [...prev.gender, gender as any]
                   }))}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 border flex items-center gap-1.5 ${
                     filters.gender.includes(gender as any) 
-                    ? 'bg-neutral-900 text-white' 
-                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                    ? 'bg-neutral-900 text-white border-neutral-900 shadow-md shadow-neutral-900/20' 
+                    : 'bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300 hover:shadow-sm'
                   }`}
                 >
+                  <span>{gender === 'Male' ? '♂' : '♀'}</span>
                   {gender}
                 </button>
               ))}
@@ -335,8 +355,11 @@ const App: React.FC = () => {
               {hasActiveFilters && (
                 <button 
                   onClick={resetFilters}
-                  className="ml-2 text-xs text-neutral-400 hover:text-neutral-900 transition-colors underline underline-offset-2"
+                  className="ml-3 px-3 py-2 text-xs font-medium text-rose-500 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all duration-200 flex items-center gap-1"
                 >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                   Clear all
                 </button>
               )}
@@ -345,15 +368,18 @@ const App: React.FC = () => {
         </section>
 
         {/* Results Count */}
-        <div className="mb-8 opacity-0 animate-fade-up delay-200">
-          <div className="flex items-center gap-3">
-            <p className="text-sm text-neutral-400">
-              {filteredDogs.length} {filteredDogs.length === 1 ? 'dog' : 'dogs'} {showFavoritesOnly ? 'in your favorites' : 'available'}
-            </p>
+        <div className="mb-10 opacity-0 animate-fade-up delay-200">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+              <p className="text-sm font-medium text-neutral-600">
+                {filteredDogs.length} {filteredDogs.length === 1 ? 'dog' : 'dogs'} {showFavoritesOnly ? 'in favorites' : 'available'}
+              </p>
+            </div>
             {showFavoritesOnly && (
               <button 
                 onClick={() => setShowFavoritesOnly(false)}
-                className="text-xs text-rose-500 hover:text-rose-600 font-medium flex items-center gap-1 transition-colors"
+                className="text-xs text-rose-500 hover:text-rose-600 font-medium flex items-center gap-1.5 px-3 py-1.5 bg-rose-50 rounded-full transition-all hover:bg-rose-100"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -366,46 +392,47 @@ const App: React.FC = () => {
 
         {/* Results */}
         {filteredDogs.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 opacity-0 animate-fade-up delay-300">
-            {filteredDogs.map(dog => (
-              <DogCard 
-                key={dog.id} 
-                dog={dog} 
-                onClick={setSelectedDog} 
-                isLiked={likedDogs.has(dog.id)}
-                onLike={toggleLike}
-              />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 opacity-0 animate-fade-up delay-300">
+            {filteredDogs.map((dog, index) => (
+              <div key={dog.id} style={{ animationDelay: `${300 + index * 50}ms` }} className="opacity-0 animate-fade-up">
+                <DogCard 
+                  dog={dog} 
+                  onClick={setSelectedDog} 
+                  isLiked={likedDogs.has(dog.id)}
+                  onLike={toggleLike}
+                />
+              </div>
             ))}
           </div>
         ) : (
-          <div className="py-24 flex flex-col items-center text-center opacity-0 animate-fade-up">
-            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${showFavoritesOnly ? 'bg-rose-50' : 'bg-neutral-100'}`}>
+          <div className="py-32 flex flex-col items-center text-center opacity-0 animate-fade-up">
+            <div className={`w-20 h-20 rounded-3xl flex items-center justify-center mb-8 ${showFavoritesOnly ? 'bg-gradient-to-br from-rose-50 to-rose-100' : 'bg-gradient-to-br from-neutral-50 to-neutral-100'}`}>
               {showFavoritesOnly ? (
-                <svg className="w-8 h-8 text-rose-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                <svg className="w-10 h-10 text-rose-400" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               ) : (
-                <svg className="w-8 h-8 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-10 h-10 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               )}
             </div>
             
-            <h3 className="text-2xl font-normal mb-3 text-neutral-900 serif">
+            <h3 className="text-3xl font-normal mb-4 text-neutral-900 serif">
               {showFavoritesOnly ? 'No favorites yet' : 'No matches found'}
             </h3>
-            <p className="text-neutral-500 max-w-sm mb-8">
+            <p className="text-neutral-500 max-w-md mb-10 leading-relaxed">
               {showFavoritesOnly 
-                ? 'Start exploring and tap the heart icon on dogs you love to add them here.'
-                : 'We couldn\'t find any dogs matching your criteria. Try adjusting your filters.'
+                ? 'Start exploring and tap the heart icon on dogs you love to save them here for later.'
+                : 'We couldn\'t find any dogs matching your criteria. Try adjusting your filters or search term.'
               }
             </p>
             
             <button 
               onClick={resetFilters}
-              className="px-6 py-3 bg-neutral-900 text-white text-sm font-medium rounded-xl hover:bg-neutral-800 transition-colors"
+              className="px-8 py-4 bg-neutral-900 text-white text-sm font-medium rounded-2xl hover:bg-neutral-800 transition-all duration-300 shadow-lg shadow-neutral-900/20 hover:shadow-xl hover:shadow-neutral-900/25 hover:-translate-y-0.5"
             >
-              {showFavoritesOnly ? 'Browse all dogs' : 'Clear filters'}
+              {showFavoritesOnly ? 'Browse all dogs' : 'Clear all filters'}
             </button>
           </div>
         )}

@@ -82,11 +82,11 @@ const DogDetail: React.FC<DogDetailProps> = ({ dog, onClose, onAdopt }) => {
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-neutral-900/60 backdrop-blur-sm animate-scale-in"></div>
+      <div className="absolute inset-0 bg-neutral-900/70 backdrop-blur-md animate-scale-in"></div>
       
       {/* Modal */}
       <div 
-        className="bg-white w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl shadow-2xl flex flex-col lg:flex-row relative animate-scale-in"
+        className="bg-white w-full max-w-4xl max-h-[92vh] overflow-hidden rounded-3xl shadow-2xl flex flex-col lg:flex-row relative animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         
@@ -155,13 +155,14 @@ const DogDetail: React.FC<DogDetailProps> = ({ dog, onClose, onAdopt }) => {
           {/* Stats Grid */}
           <div className="grid grid-cols-4 gap-3 mb-8">
             {[
-              { label: 'Gender', value: dog.gender },
-              { label: 'Age', value: dog.age },
-              { label: 'Size', value: dog.size },
-              { label: 'Weight', value: dog.weight }
+              { label: 'Gender', value: dog.gender, icon: dog.gender === 'Male' ? '♂' : '♀' },
+              { label: 'Age', value: dog.age, icon: '🎂' },
+              { label: 'Size', value: dog.size, icon: '📏' },
+              { label: 'Weight', value: dog.weight, icon: '⚖️' }
             ].map(stat => (
-              <div key={stat.label} className="text-center p-3 bg-neutral-50 rounded-xl">
-                <p className="text-[10px] font-medium uppercase tracking-wide text-neutral-400 mb-1">{stat.label}</p>
+              <div key={stat.label} className="text-center p-4 bg-gradient-to-b from-neutral-50 to-white rounded-2xl border border-neutral-100 hover:border-neutral-200 transition-colors">
+                <span className="text-lg mb-1 block">{stat.icon}</span>
+                <p className="text-[10px] font-medium uppercase tracking-wide text-neutral-400 mb-0.5">{stat.label}</p>
                 <p className="text-sm font-semibold text-neutral-900">{stat.value}</p>
               </div>
             ))}
@@ -179,9 +180,9 @@ const DogDetail: React.FC<DogDetailProps> = ({ dog, onClose, onAdopt }) => {
           <div className="grid grid-cols-2 gap-6 mb-8">
             <div>
               <h4 className="text-xs font-medium uppercase tracking-wide text-neutral-400 mb-3">Personality</h4>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {dog.tags.map(tag => (
-                  <span key={tag} className="px-2.5 py-1 bg-neutral-100 rounded-lg text-xs font-medium text-neutral-600">
+                  <span key={tag} className="px-3 py-1.5 bg-gradient-to-b from-neutral-50 to-neutral-100 border border-neutral-100 rounded-full text-xs font-medium text-neutral-700">
                     {tag}
                   </span>
                 ))}
@@ -208,13 +209,16 @@ const DogDetail: React.FC<DogDetailProps> = ({ dog, onClose, onAdopt }) => {
           <div className="mt-auto pt-6 border-t border-neutral-100 flex gap-3">
             <button 
               onClick={handleStartApplication}
-              className="flex-1 bg-neutral-900 text-white py-3.5 px-6 rounded-xl font-medium text-sm hover:bg-neutral-800 transition-colors"
+              className="flex-1 bg-neutral-900 text-white py-4 px-6 rounded-2xl font-medium text-sm hover:bg-neutral-800 transition-all duration-300 shadow-lg shadow-neutral-900/20 hover:shadow-xl hover:shadow-neutral-900/25 hover:-translate-y-0.5 flex items-center justify-center gap-2"
             >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
               Start Application
             </button>
             <button 
               onClick={handleContact}
-              className="px-6 py-3.5 border border-neutral-200 text-neutral-700 rounded-xl font-medium text-sm hover:bg-neutral-50 transition-colors"
+              className="px-6 py-4 border border-neutral-200 text-neutral-700 rounded-2xl font-medium text-sm hover:bg-neutral-50 hover:border-neutral-300 transition-all duration-300"
             >
               Contact
             </button>

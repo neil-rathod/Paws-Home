@@ -66,6 +66,40 @@
       .animate-shimmer {
         animation: shimmer 1.5s ease-in-out infinite;
       }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+      }
+      .animate-heartbeat {
+        animation: heartbeat 0.3s ease-in-out;
+      }
+      /* Improved focus visible for accessibility */
+      button:focus-visible, a:focus-visible, input:focus-visible {
+        outline: 2px solid #171717;
+        outline-offset: 2px;
+      }
+      /* Smooth scrollbar for the whole page */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.1);
+        border-radius: 100px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0,0,0,0.2);
+      }
     </style>
   <script type="importmap">
 {
